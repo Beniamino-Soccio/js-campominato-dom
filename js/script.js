@@ -52,6 +52,20 @@ const createCell = (cellNumber, level) => {
     return cell; 
 }
 
+//function random num
+
+const getRandomNumber = (totalCells, totBombs) => {
+     
+     const bombs = [];
+     while (bombs.length < totBombs){
+        const randomNum = Math.floor(Math.random() * totalCells) +1;
+        if (!bombs.includes(randomNum)){
+            bombs.push(randomNum);
+        }
+     }
+    return bombs;
+}
+
 const startGame = event => {
     event.preventDefault();
     // Svuoto la griglia
@@ -63,7 +77,7 @@ const startGame = event => {
     // Prendo il valore dalla tendina
     const level = levelSelect.value;
     
-
+    
     let score = 0;
     let rows;
     let cols;
@@ -85,21 +99,26 @@ const startGame = event => {
     }
 
     const totalCells = rows * cols;
+    const totBombs = 16;
+    const winCondition = totalCells - totBombs;
     console.log('totale celle:', totalCells);
 
-    // Setto la proprietà CSS per il numero di colonne
-    const root = document.querySelector(':root');
-    root.style.setProperty('--cols-per-row', cols);
-
+    //genero bombe
+    const bombs = getRandomNumber(totalCells, totBombs);
+    console.log(bombs);
     // Genero le celle della griglia
     for (let i = 1; i <= totalCells; i++){
         const cell = createCell(i, level);
 
         // Aggiungo un evento click a ogni cella
         cell.addEventListener('click', () => {
-            console.log(cell.innerText);
             console.log(i);
+
+            if (cell.classList.contains('clicked')){
+                return;
+            } 
             cell.classList.add('clicked');
+            //aumento score
             scorePoint.innerText = ++score;
         });
 
