@@ -59,15 +59,25 @@ footer p{
 }
 
 .cell{
-    height: calc(100% / 10);
-    flex-basis: calc(100% / 10);
     border: 1px solid #000;
-    background-color: #fff;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.clicked{
+
+.cell.normal{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+.cell.hard{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+.cell.easy{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+.cell.clicked{
     background-color: dodgerblue;
 }

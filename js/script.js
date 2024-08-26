@@ -30,41 +30,70 @@ Note:
 */
 
 //function
-const createCell = content => {
-    const cell = document.createElement('div');
-    cell.className = 'cell';
-    cell.append(content);
-    return cell;
-}
 
-//Al click del bottone play, vengono generate 100 celle in 10 righe da 10 celle ciascuna.
-//! prep
-//recupero gli elementi del DOM che mi servono
 const grid = document.getElementById('grid');
 const button = document.getElementById('play');
+const form = document.querySelector('form');
+const levelSelect = document.getElementById('select-level');
 
-const row = 10;
-const col = 10;
-const cells = row * col;
+// Funzione per creare una cella
+const createCell = (cellNumber, level) => {
+    const cell = document.createElement('div');
+    cell.classList.add('cell', level);
+    cell.innerText = cellNumber;
+    return cell; 
+}
 
-//! elaboration
-//  al click del bottone ciclo per tante volte sono le celle desiderate
-button.addEventListener("click", function(){
-    
-    for (let i = 1; i <= cells; i++){
-        const cell = createCell(i);
-        
-        // event della cella
-        cell.addEventListener("click", function(){
-            console.log(i)
-            cell.classList.add('clicked');
-         })
-        // "stampo"
-        grid.appendChild(cell);
+const startGame = event => {
+    event.preventDefault();
+    // Svuoto la griglia
+    grid.innerHTML = '';
+    // Cambio il testo del pulsante
+    button.innerText = 'Ricomincia';
+    // Prendo il valore dalla tendina
+    const level = levelSelect.value;
 
+    let rows;
+    let cols;
+
+    // Decido il numero di righe e colonne in base al livello selezionato
+    switch (level){
+        case 'hard':
+            rows = 7;
+            cols = 7;
+            break;
+        case 'normal':
+            rows = 9;
+            cols = 9;
+            break;
+        case 'easy':
+            rows = 10;
+            cols = 10;
+            break;
     }
- });
 
- 
+    const totalCells = rows * cols;
 
+    // Setto la proprietà CSS per il numero di colonne
+    const root = document.querySelector(':root');
+    root.style.setProperty('--cols-per-row', cols);
+
+    // Genero le celle della griglia
+    for (let i = 1; i <= totalCells; i++){
+        const cell = createCell(i, level);
+
+        // Aggiungo un evento click a ogni cella
+        cell.addEventListener('click', () => {
+            console.log(cell.innerText);
+            console.log(i);
+            cell.classList.toggle('clicked');
+        });
+
+        // Inserisco la cella nella griglia
+        grid.appendChild(cell);
+    }
+}
+
+// Aggiungo l'evento submit al form per avviare il gioco
+form.addEventListener('submit', startGame);
 
