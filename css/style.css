@@ -1,0 +1,73 @@
+/* css reset*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Generics */
+
+body{
+    font-family: sans-serif;
+}
+
+header{
+    height: 100px;
+    border: 1px dashed red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+h1{
+    font-size: 2.5rem;
+    line-height: 100px;
+    
+}
+button{
+    padding: 5px 35px;
+    font-size: 1.5rem;
+}
+main{
+    background-color: #7FFFD4;
+    padding: 75px 0;
+    height: calc(100vh - 200px);
+}
+footer{
+    height: 100px;
+    border: 1px dashed red;
+}
+footer p{
+    font-size: 20px;
+    line-height: 100px;
+    padding: 0 30px;
+}
+/* Utils */
+
+.container{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#grid{
+    height: 600px;
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.cell{
+    height: calc(100% / 10);
+    flex-basis: calc(100% / 10);
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.clicked{
+    background-color: dodgerblue;
+}
