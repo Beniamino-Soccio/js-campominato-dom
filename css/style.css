@@ -80,4 +80,5 @@ footer p{
 }
 .cell.clicked{
     background-color: dodgerblue;
+    cursor: not-allowed;
 }
