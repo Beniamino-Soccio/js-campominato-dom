@@ -106,28 +106,46 @@ const startGame = event => {
     //genero bombe
     const bombs = getRandomNumber(totalCells, totBombs);
     console.log(bombs);
-    // Genero le celle della griglia
-    for (let i = 1; i <= totalCells; i++){
+
+    let gameOver = false;
+
+    // funzione gameover
+    const endGame = (message) => {
+        alert(message);
+        gameOver = true;
+    };
+
+    // creazione celle
+    for (let i = 1; i <= totalCells; i++) {
         const cell = createCell(i, level);
 
-        // Aggiungo un evento click a ogni cella
+        // evento click
         cell.addEventListener('click', () => {
-            console.log(i);
-
-            if (cell.classList.contains('clicked')){
+            if (cell.classList.contains('clicked') || gameOver) {
                 return;
-            } 
+            }
+
             cell.classList.add('clicked');
-            //aumento score
-            scorePoint.innerText = ++score;
+
+            if (bombs.includes(i)) {
+                cell.classList.add('bomb');
+                endGame(`hai perso, hai fatto ${score} punti`);
+            } else {
+                cell.classList.add('safe');
+                scorePoint.innerText = ++score;
+
+                if (score === winCondition) {
+                    endGame(`hai vinto, hai fatto ${score} punti`);
+                }
+            }
         });
 
-        // Inserisco la cella nella griglia
+        // stampo
         grid.appendChild(cell);
     }
 }
 
-// Aggiungo l'evento submit al form per avviare il gioco
+// evento per far cominciare
 form.addEventListener('submit', startGame);
 
 /*

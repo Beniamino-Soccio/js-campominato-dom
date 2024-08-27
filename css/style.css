@@ -82,3 +82,6 @@ footer p{
     background-color: dodgerblue;
     cursor: not-allowed;
 }
+.cell.bomb {
+    background-color: red;
+}
